@@ -1,0 +1,34 @@
+version: "3.8"
+services:
+  db-serv:
+    image: mysql:latest
+    environment:
+      MYSQL_DATABASE: testdb1
+      MYSQL_USER: testDbUser
+      MYSQL_PASSWORD: gtjudk1979
+      MYSQL_ROOT_PASSWORD: Mk22jHGy23.B1
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - lamp-docker
+
+  php-app:
+    depends_on:
+      - db-serv
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
+    volumes:
+      - ./app:/var/www/html
+      - ./configs/custom.ini:/usr/local/etc/php/conf.d/custom.ini
+    networks:
+      - lamp-docker
+
+networks:
+  lamp-docker:
+    driver: bridge
+
+volumes:
+  mysql-data:
