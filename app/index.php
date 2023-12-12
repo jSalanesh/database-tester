@@ -16,4 +16,7 @@ include "connector.php";
         <button type="submit" name="submit" value="asd">Submit</button>
     </form>
 </body>
+<?php
+mysqli_close($connection);
+?>
 </html>
